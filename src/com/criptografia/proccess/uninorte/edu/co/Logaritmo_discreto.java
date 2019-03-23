@@ -20,14 +20,14 @@ public class Logaritmo_discreto {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("ingrese numero primo: \n");
-        BigInteger p, m, y, g, row1;
-        int mi; 
         ArrayList<Integer> Zp = new ArrayList<Integer>();
+        BigInteger p, m, y, g, row1, inverso, beta, gamma, dos;
+        int mi;
         boolean Generador;
         //m1 double value to obtain a sqrt
         Double m1;
 
+        System.out.println("ingrese numero primo: \n");
         p = new BigInteger(sc.nextLine());
         boolean prime;
 
@@ -53,18 +53,21 @@ public class Logaritmo_discreto {
                 System.out.println("sqrt de m: " + m1);
                 m1 = Math.ceil(m1);
                 mi = m1.intValue();
-                System.out.println("mi = "+ mi);
-               
+                System.out.println("mi = " + mi);
+
                 //definicion de la hashtable. 
                 Hashtable<Integer, BigInteger> table1 = new Hashtable<Integer, BigInteger>();
                 for (int j = 0; j < mi; j++) {
-                    row1 = g.pow(j).mod(p); 
+                    row1 = g.pow(j).mod(p);
                     table1.put(j, row1);
                 }
-                for (int i = 0; i < mi; i++) {
-                    System.out.println(table1.get(i));
-                }
-                
+                dos = new BigInteger("2");
+                inverso = (g.pow((p.subtract(dos)).intValue())).mod(p);
+                System.out.println("inverso de g mod p: "+ inverso);
+                beta = (inverso.pow(m1.intValue())).mod(p);
+                System.out.println("beta: "+ beta);
+
+
             } else {
                 System.out.println("el valor de g: " + g + " resulto " + Generador + "entonces No es un generador de Zp");
             }
