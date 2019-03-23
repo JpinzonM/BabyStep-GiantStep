@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  *
@@ -20,11 +21,12 @@ public class Logaritmo_discreto {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("ingrese numero primo: \n");
-        BigInteger p, m, y, g;
+        BigInteger p, m, y, g, row1;
+        int mi; 
         ArrayList<Integer> Zp = new ArrayList<Integer>();
         boolean Generador;
         //m1 double value to obtain a sqrt
-        double m1;
+        Double m1;
 
         p = new BigInteger(sc.nextLine());
         boolean prime;
@@ -49,7 +51,20 @@ public class Logaritmo_discreto {
                 System.out.println("m: " + m);
                 m1 = Math.sqrt(m.doubleValue());
                 System.out.println("sqrt de m: " + m1);
-
+                m1 = Math.ceil(m1);
+                mi = m1.intValue();
+                System.out.println("mi = "+ mi);
+               
+                //definicion de la hashtable. 
+                Hashtable<Integer, BigInteger> table1 = new Hashtable<Integer, BigInteger>();
+                for (int j = 0; j < mi; j++) {
+                    row1 = g.pow(j).mod(p); 
+                    table1.put(j, row1);
+                }
+                for (int i = 0; i < mi; i++) {
+                    System.out.println(table1.get(i));
+                }
+                
             } else {
                 System.out.println("el valor de g: " + g + " resulto " + Generador + "entonces No es un generador de Zp");
             }
