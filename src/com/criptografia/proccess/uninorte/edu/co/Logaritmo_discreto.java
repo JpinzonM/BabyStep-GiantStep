@@ -21,7 +21,7 @@ public class Logaritmo_discreto {
 
         Scanner sc = new Scanner(System.in);
         ArrayList<Integer> Zp = new ArrayList<Integer>();
-        BigInteger p, m, y, g, row1, inverso, beta, gamma, dos;
+        BigInteger p, m, y, g, row1, inverso, beta, ro = null, dos;
         int mi;
         boolean Generador;
         //m1 double value to obtain a sqrt
@@ -57,6 +57,8 @@ public class Logaritmo_discreto {
 
                 //definicion de la hashtable. 
                 Hashtable<Integer, BigInteger> table1 = new Hashtable<Integer, BigInteger>();
+                Hashtable<Integer, BigInteger> table2 = new Hashtable<Integer, BigInteger>();
+                
                 for (int j = 0; j < mi; j++) {
                     row1 = g.pow(j).mod(p);
                     table1.put(j, row1);
@@ -66,8 +68,25 @@ public class Logaritmo_discreto {
                 System.out.println("inverso de g mod p: "+ inverso);
                 beta = (inverso.pow(m1.intValue())).mod(p);
                 System.out.println("beta: "+ beta);
-
-
+                
+                int x = 0;
+                        
+                for (int i = 0; i < mi; i++) {
+                    ro = (y.multiply(beta.pow(i))).mod(p);
+                    for (int j = 0; j < mi; j++) {
+                        table2.put(i, ro);
+                        if ( ro.equals(table1.get(j))) {
+                            System.out.println("x= "+ i + "*" + mi + "+" + j);
+                            x = (i*mi)+ j;
+                            System.out.println("x= "+ x);
+                            break;
+                        }
+                    }
+                }
+              
+                BigInteger comprobación = (g.pow(x)).mod(p);
+                System.out.println( "("+ g + "^(" + x +"))" + " mod " + p + " = "+ comprobación);
+                
             } else {
                 System.out.println("el valor de g: " + g + " resulto " + Generador + "entonces No es un generador de Zp");
             }
